@@ -57,7 +57,7 @@ Contêineres iniciados na ordem correta:
 
 ### Desenvolvimento e Homologação
 
-Nesses ambientes o banco **já existe externamente** (PostgreSQL em `portainer.desenv.cge.mt.gov.br:5433`).
+Nesses ambientes o banco **já existe externamente** (PostgreSQL em `portainer.desenv.exemplo.com.br:5433`).
 O deploy é gerenciado pelo **Portainer** de cada ambiente, que puxa o `docker-compose` diretamente do GitLab.
 
 Contêineres iniciados:

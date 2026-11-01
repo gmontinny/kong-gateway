@@ -3,7 +3,7 @@ _transform: true
 
 services:
   - name: mtdash-api
-    url: http://mtdash-api.homolog.cge.mt.gov.br
+    url: http://minha-api.homolog.exemplo.com.br
     plugins:
       - name: rate-limiting
         config:
@@ -13,7 +13,7 @@ services:
       - name: cors
         config:
           origins:
-            - "http://mtdash.homolog.cge.mt.gov.br"
+            - "http://minha-api.homolog.exemplo.com.br"
           methods:
             - GET
             - POST

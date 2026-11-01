@@ -16,7 +16,7 @@ build-dev:
   stage: build-dev
   environment:
     name: desenv
-    url: http://kong.desenv.cge.mt.gov.br/
+    url: http://kong.desenv.exemplo.com.br/
   when: manual
   allow_failure: false
   script:
@@ -31,7 +31,7 @@ build-hml:
   stage: build-hml
   environment:
     name: homolog
-    url: http://kong.homolog.cge.mt.gov.br/
+    url: http://kong.homolog.exemplo.com.br/
   when: manual
   allow_failure: false
   script:
