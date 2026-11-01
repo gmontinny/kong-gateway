@@ -18,7 +18,7 @@ services:
         condition: none
 
   kong:
-    image: ponei02.cge.mt.gov.br:5000/cge-mt-sistema-kong:${IMG_TAG}
+    image: registry-homolog:5000/cge-mt-sistema-kong:${IMG_TAG}
     networks:
       - traefik-public
     ports:

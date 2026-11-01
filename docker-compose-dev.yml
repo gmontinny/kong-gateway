@@ -18,7 +18,7 @@ services:
         condition: none
 
   kong:
-    image: zebra02.cge.mt.gov.br:5000/cge-mt-sistema-kong:${IMG_TAG}
+    image: registry-desenv:5000/cge-mt-sistema-kong:${IMG_TAG}
     networks:
       - npm-public
     ports:
