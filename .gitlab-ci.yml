@@ -1,0 +1,41 @@
+image: docker:latest
+
+stages:
+  - build-dev
+  - build-hml
+
+variables:
+  IMG_NAME: cge-mt-sistema-kong
+  IMG_TAG: 1.0.1.0
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_CONTENT_TRUST: ""
+
+# ─── DEV ────────────────────────────────────────────────────────────────────
+
+build-dev:
+  stage: build-dev
+  environment:
+    name: desenv
+    url: http://kong.desenv.cge.mt.gov.br/
+  when: manual
+  allow_failure: false
+  script:
+    - docker build -t $IMG_NAME:$IMG_TAG --build-arg PROFILE=dev .
+    - docker image tag $IMG_NAME:$IMG_TAG $REGISTRY_HOST_DEV:5000/$IMG_NAME:$IMG_TAG
+    - docker login $REGISTRY_HOST_DEV:5000 -u $USR_REGISTRY -p $PW_REGISTRY
+    - docker image push $REGISTRY_HOST_DEV:5000/$IMG_NAME:$IMG_TAG
+
+# ─── HML ────────────────────────────────────────────────────────────────────
+
+build-hml:
+  stage: build-hml
+  environment:
+    name: homolog
+    url: http://kong.homolog.cge.mt.gov.br/
+  when: manual
+  allow_failure: false
+  script:
+    - docker build -t $IMG_NAME:$IMG_TAG --build-arg PROFILE=hml .
+    - docker image tag $IMG_NAME:$IMG_TAG $REGISTRY_HOST_HML:5000/$IMG_NAME:$IMG_TAG
+    - docker login $REGISTRY_HOST_HML:5000 -u $USR_REGISTRY -p $PW_REGISTRY
+    - docker image push $REGISTRY_HOST_HML:5000/$IMG_NAME:$IMG_TAG

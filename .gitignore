@@ -1,0 +1,13 @@
+# Arquivos com credenciais reais — NÃO versionar
+.env
+.env.dev
+.env.hml
+portainer.env.dev
+portainer.env.hml
+POSTGRES_PASSWORD
+
+# Arquivo temporário gerado pelo CI antes do build
+customize/kong.yaml
+
+# Docker override local
+docker-compose.override.yml

@@ -1,0 +1,32 @@
+_format_version: "2.1"
+_transform: true
+
+services:
+  - name: mtdash-api
+    url: http://mtdash-api.homolog.cge.mt.gov.br
+    plugins:
+      - name: rate-limiting
+        config:
+          minute: 120
+          hour: 2000
+          policy: local
+      - name: cors
+        config:
+          origins:
+            - "http://mtdash.homolog.cge.mt.gov.br"
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Authorization
+            - Content-Type
+            - X-API-Key
+          credentials: true
+    routes:
+      - name: mtdash-rota
+        paths:
+          - /
+        strip_path: false

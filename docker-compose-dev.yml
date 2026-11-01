@@ -1,0 +1,57 @@
+version: '3.1'
+
+services:
+  kong-migrations:
+    image: kong:latest
+    command: kong migrations bootstrap && kong migrations up && kong migrations finish
+    networks:
+      - npm-public
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: ${KONG_PG_HOST}
+      KONG_PG_PORT: ${KONG_PG_PORT}
+      KONG_PG_DATABASE: ${KONG_PG_DATABASE}
+      KONG_PG_USER: ${KONG_PG_USER}
+      KONG_PG_PASSWORD: ${KONG_PG_PASSWORD}
+    deploy:
+      restart_policy:
+        condition: none
+
+  kong:
+    image: zebra02.cge.mt.gov.br:5000/cge-mt-sistema-kong:${IMG_TAG}
+    networks:
+      - npm-public
+    ports:
+      - "${KONG_PROXY_PORT}:8000"
+      - "${KONG_MANAGER_PORT}:8002"
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: ${KONG_PG_HOST}
+      KONG_PG_PORT: ${KONG_PG_PORT}
+      KONG_PG_DATABASE: ${KONG_PG_DATABASE}
+      KONG_PG_USER: ${KONG_PG_USER}
+      KONG_PG_PASSWORD: ${KONG_PG_PASSWORD}
+      TZ: ${TZ}
+      KONG_PROXY_LISTEN: "0.0.0.0:8000"
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001"
+      KONG_ADMIN_GUI_LISTEN: "0.0.0.0:8002"
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_PREFIX: /var/run/kong
+    volumes:
+      - /docker/kong/prefix:/var/run/kong
+      - /docker/kong/temp:/tmp
+    deploy:
+      mode: global
+      placement:
+        constraints: [node.labels.cloud == worker03]
+      restart_policy:
+        condition: on-failure
+        delay: 600s
+
+networks:
+  npm-public:
+    external: true
+
