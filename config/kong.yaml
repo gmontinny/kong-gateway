@@ -5,7 +5,7 @@ _transform: true
 
 services:
   - name: mtdash-api
-    url: http://mtdash-api.desenv.cge.mt.gov.br
+    url: http://minha-api.exemplo.com.br
     plugins:
       - name: rate-limiting
         config:

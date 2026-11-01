@@ -1,7 +1,7 @@
 # Tutorial: Gerenciando uma API FastAPI com o Kong Gateway
 
 Este tutorial mostra como configurar o Kong para atuar como API Gateway na frente
-da API FastAPI publicada em `http://mtdash-api.desenv.cge.mt.gov.br`.
+da API FastAPI publicada em `http://minha-api.exemplo.com.br`.
 
 ---
 
@@ -17,7 +17,7 @@ Kong Gateway (localhost:8000)
   │  ├── logs
   │  └── roteamento
   ▼
-FastAPI (mtdash-api.desenv.cge.mt.gov.br)
+FastAPI (minha-api.exemplo.com.br)
 ```
 
 O Kong recebe todas as requisições, aplica plugins (segurança, limites, logs) e
@@ -78,7 +78,7 @@ _transform: true
 
 services:
   - name: mtdash-api
-    url: http://mtdash-api.desenv.cge.mt.gov.br
+    url: http://minha-api.exemplo.com.br
     routes:
       - name: mtdash-rota
         paths:
@@ -87,9 +87,9 @@ services:
 ```
 
 Com isso, todo tráfego é encaminhado preservando o caminho completo:
-- `localhost:8000/docs` → `mtdash-api.desenv.cge.mt.gov.br/docs`
-- `localhost:8000/openapi.json` → `mtdash-api.desenv.cge.mt.gov.br/openapi.json`
-- `localhost:8000/api/v1/...` → `mtdash-api.desenv.cge.mt.gov.br/api/v1/...`
+- `localhost:8000/docs` → `minha-api.exemplo.com.br/docs`
+- `localhost:8000/openapi.json` → `minha-api.exemplo.com.br/openapi.json`
+- `localhost:8000/api/v1/...` → `minha-api.exemplo.com.br/api/v1/...`
 
 Reinicie o Kong para aplicar:
 
@@ -126,7 +126,7 @@ _transform: true
 
 services:
   - name: mtdash-api
-    url: http://mtdash-api.desenv.cge.mt.gov.br
+    url: http://minha-api.exemplo.com.br
     plugins:
       - name: rate-limiting
         config:
@@ -158,7 +158,7 @@ _transform: true
 
 services:
   - name: mtdash-api
-    url: http://mtdash-api.desenv.cge.mt.gov.br
+    url: http://minha-api.exemplo.com.br
     routes:
 
       # Rota 1 — pública, sem autenticação
@@ -244,7 +244,7 @@ _transform: true
 
 services:
   - name: mtdash-api
-    url: http://mtdash-api.desenv.cge.mt.gov.br
+    url: http://minha-api.exemplo.com.br
     routes:
 
       # Rota 1 — pública, sem autenticação
@@ -329,7 +329,7 @@ _transform: true
 
 services:
   - name: mtdash-api
-    url: http://mtdash-api.desenv.cge.mt.gov.br
+    url: http://minha-api.exemplo.com.br
     plugins:
       - name: cors
         config:
@@ -372,7 +372,7 @@ _transform: true
 
 services:
   - name: mtdash-api
-    url: http://mtdash-api.desenv.cge.mt.gov.br
+    url: http://minha-api.exemplo.com.br
     plugins:
       - name: file-log
         config:
@@ -446,7 +446,7 @@ _transform: true
 
 services:
   - name: mtdash-api
-    url: http://mtdash-api.desenv.cge.mt.gov.br
+    url: http://minha-api.exemplo.com.br
     plugins:
       # aplicados em todas as rotas
       - name: rate-limiting
@@ -526,7 +526,7 @@ O serviço representa a API de destino.
 2. Menu lateral → **Gateway Services** → **New Gateway Service**
 3. Preencha:
    - **Name:** `mtdash-api`
-   - **URL:** `http://mtdash-api.desenv.cge.mt.gov.br`
+   - **URL:** `http://minha-api.exemplo.com.br`
 4. Clique em **Save**
 
 ---
